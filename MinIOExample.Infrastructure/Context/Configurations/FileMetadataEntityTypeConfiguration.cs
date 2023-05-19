@@ -21,7 +21,7 @@ public class FileMetadataEntityTypeConfiguration : IEntityTypeConfiguration<File
         builder.Property(m => m.ContentType)
             .HasConversion(
                 ct => ct.ToString(),
-                value => ContentType.Parse(value));
+                value => new ContentType(value));
 
         builder.Property(m => m.UploadedAt);
         builder.Property(m => m.UploadedBy)

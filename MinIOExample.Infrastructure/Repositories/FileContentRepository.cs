@@ -47,7 +47,7 @@ public class FileContentRepository : IFileContentRepository
             var stat = await _minioClient.GetObjectAsync(args, token);
             await _semaphore.WaitAsync(token);
         
-            return new FileContent(fileId, fileContent, ContentType.Parse(stat.ContentType));
+            return new FileContent(fileId, fileContent, new ContentType(stat.ContentType));
         }
         catch (ObjectNotFoundException _)
         {

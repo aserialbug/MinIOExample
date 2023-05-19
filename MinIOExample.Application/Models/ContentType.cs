@@ -9,7 +9,7 @@ public class ContentType : ValueObject
     // interested in details of Content-Type header format
     private readonly string _contentType;
 
-    private ContentType(string contentType)
+    public ContentType(string contentType)
     {
         if (string.IsNullOrWhiteSpace(contentType))
             throw new ArgumentNullException(nameof(contentType));
@@ -23,6 +23,4 @@ public class ContentType : ValueObject
     }
 
     public override string ToString() => _contentType;
-
-    public static ContentType Parse(string value) => new(value);
 }

@@ -79,7 +79,7 @@ public class FilesController : ControllerBase
         var file = new FileDto
         {
             FileName = formFile.FileName,
-            ContentType = ContentType.Parse(formFile.ContentType),
+            ContentType = new ContentType(formFile.ContentType),
             Content = memory
         };
 
