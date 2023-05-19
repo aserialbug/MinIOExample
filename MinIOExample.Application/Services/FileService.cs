@@ -3,6 +3,7 @@ using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Options;
+using MinIOExample.Application.Exceptions;
 using MinIOExample.Application.Interfaces;
 using MinIOExample.Application.Models;
 using MinIOExample.Application.Models.DTO;
@@ -59,11 +60,11 @@ public class FileService
       
       var fileSizeMiB = metadata.FileSizeBytes * 1d / Constants.Mebibyte;
       if (_restrictionsSettings.MaxFileSizeMiB.HasValue && fileSizeMiB > _restrictionsSettings.MaxFileSizeMiB)
-         throw new Exception($"File size exceeds MaxFileSizeMb={_restrictionsSettings.MaxFileSizeMiB} threshold");
+         throw new PolicyViolationException($"File size exceeds MaxFileSizeMb={_restrictionsSettings.MaxFileSizeMiB} threshold");
         
       var extension = Path.GetExtension(file.FileName);
       if (_restrictionsSettings.AllowedFileTypes != null && !_restrictionsSettings.AllowedFileTypes.Contains(extension))
-         throw new Exception($"File type {extension} is not in AllowedFileTypes");
+         throw new PolicyViolationException($"File type {extension} is not in AllowedFileTypes");
 
       var content = new FileContent(metadata.Id, file.Content, file.ContentType);
       try

@@ -20,7 +20,8 @@ public class ErrorHandlerFilter : IAsyncActionFilter
             };
             executed.ExceptionHandled = true;
         }
-        else if(executed.Exception is ArgumentException)
+        else if(executed.Exception is ArgumentException ||
+                executed.Exception is PolicyViolationException)
         {
             executed.Result = new ObjectResult(executed.Exception.Message)
             {
