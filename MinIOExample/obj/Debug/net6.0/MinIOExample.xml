@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>MinIOExample</name>
+    </assembly>
+    <members>
+        <member name="T:MinIOExample.Controllers.FilesController">
+            <summary>
+            Контроллер для работы с файлами
+            </summary>
+        </member>
+        <member name="M:MinIOExample.Controllers.FilesController.#ctor(MinIOExample.Application.Services.FileService)">
+            <summary>
+            Конструктор контроллера
+            </summary>
+            <param name="fileService"></param>
+        </member>
+        <member name="M:MinIOExample.Controllers.FilesController.DownloadFileAsync(System.String,System.Threading.CancellationToken)">
+            <summary>
+            Загрузить файл
+            </summary>
+            <param name="fileId">Идентификатор файла</param>
+            <param name="token">Токен отмены операции</param>
+            <returns></returns>
+        </member>
+        <member name="M:MinIOExample.Controllers.FilesController.GetFileMetaAsync(System.String,System.Threading.CancellationToken)">
+            <summary>
+            Получение сведений о файле
+            </summary>
+            <param name="fileId">Идентификатор файла</param>
+            <param name="token">Токен отмены операции</param>
+            <returns></returns>
+        </member>
+        <member name="M:MinIOExample.Controllers.FilesController.UploadFileAsync(Microsoft.AspNetCore.Http.IFormFile,System.Threading.CancellationToken)">
+            <summary>
+            Поместить файл в хранилище
+            </summary>
+            <param name="formFile">Файл</param>
+            <param name="token">Токен отмены операции</param>
+            <returns></returns>
+        </member>
+        <member name="M:MinIOExample.Controllers.FilesController.DeleteFileAsync(System.String,System.Threading.CancellationToken)">
+            <summary>
+            Удалить файл из хранилища
+            </summary>
+            <param name="fileId">Идентификатор файла</param>
+            <param name="token">Токен отмены операции</param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

@@ -1,0 +1,17 @@
+C:\Users\Anton\Documents\Source\MinIOExample\MinIOExample.Infrastructure\obj\Debug\net6.0\MinIOExample.Infrastructure.csproj.AssemblyReference.cache
+C:\Users\Anton\Documents\Source\MinIOExample\MinIOExample.Infrastructure\obj\Debug\net6.0\MinIOExample.Infrastructure.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Anton\Documents\Source\MinIOExample\MinIOExample.Infrastructure\obj\Debug\net6.0\MinIOExample.Infrastructure.AssemblyInfoInputs.cache
+C:\Users\Anton\Documents\Source\MinIOExample\MinIOExample.Infrastructure\obj\Debug\net6.0\MinIOExample.Infrastructure.AssemblyInfo.cs
+C:\Users\Anton\Documents\Source\MinIOExample\MinIOExample.Infrastructure\obj\Debug\net6.0\MinIOExample.Infrastructure.csproj.CoreCompileInputs.cache
+C:\Users\Anton\Documents\Source\MinIOExample\MinIOExample.Infrastructure\bin\Debug\net6.0\MinIOExample.Infrastructure.deps.json
+C:\Users\Anton\Documents\Source\MinIOExample\MinIOExample.Infrastructure\bin\Debug\net6.0\MinIOExample.Infrastructure.runtimeconfig.json
+C:\Users\Anton\Documents\Source\MinIOExample\MinIOExample.Infrastructure\bin\Debug\net6.0\MinIOExample.Infrastructure.dll
+C:\Users\Anton\Documents\Source\MinIOExample\MinIOExample.Infrastructure\bin\Debug\net6.0\MinIOExample.Infrastructure.pdb
+C:\Users\Anton\Documents\Source\MinIOExample\MinIOExample.Infrastructure\bin\Debug\net6.0\MinIOExample.Application.dll
+C:\Users\Anton\Documents\Source\MinIOExample\MinIOExample.Infrastructure\bin\Debug\net6.0\MinIOExample.Application.pdb
+C:\Users\Anton\Documents\Source\MinIOExample\MinIOExample.Infrastructure\obj\Debug\net6.0\MinIOExample.Infrastructure.csproj.CopyComplete
+C:\Users\Anton\Documents\Source\MinIOExample\MinIOExample.Infrastructure\obj\Debug\net6.0\MinIOExample.Infrastructure.dll
+C:\Users\Anton\Documents\Source\MinIOExample\MinIOExample.Infrastructure\obj\Debug\net6.0\refint\MinIOExample.Infrastructure.dll
+C:\Users\Anton\Documents\Source\MinIOExample\MinIOExample.Infrastructure\obj\Debug\net6.0\MinIOExample.Infrastructure.pdb
+C:\Users\Anton\Documents\Source\MinIOExample\MinIOExample.Infrastructure\obj\Debug\net6.0\MinIOExample.Infrastructure.genruntimeconfig.cache
+C:\Users\Anton\Documents\Source\MinIOExample\MinIOExample.Infrastructure\obj\Debug\net6.0\ref\MinIOExample.Infrastructure.dll
