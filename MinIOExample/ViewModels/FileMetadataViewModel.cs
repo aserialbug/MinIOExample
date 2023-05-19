@@ -1,4 +1,6 @@
-﻿namespace MinIOExample.ViewModels;
+﻿using System;
+
+namespace MinIOExample.ViewModels;
 
 public record FileMetadataViewModel
 {

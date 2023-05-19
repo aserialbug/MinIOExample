@@ -1,4 +1,6 @@
-﻿namespace MinIOExample.Application.Models;
+﻿using System.IO;
+
+namespace MinIOExample.Application.Models;
 
 public class FileContent : Entity<FileId>
 {

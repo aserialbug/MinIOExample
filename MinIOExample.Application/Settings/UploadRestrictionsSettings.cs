@@ -1,4 +1,6 @@
-﻿namespace MinIOExample.Application.Settings;
+﻿using System.Collections.Generic;
+
+namespace MinIOExample.Application.Settings;
 
 public record UploadRestrictionsSettings
 {

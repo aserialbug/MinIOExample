@@ -1,4 +1,7 @@
-﻿namespace MinIOExample.Application.Models;
+﻿using System;
+using System.Collections.Generic;
+
+namespace MinIOExample.Application.Models;
 
 public class ContentType : ValueObject
 {

@@ -1,4 +1,7 @@
-﻿namespace MinIOExample.Application.Models;
+﻿using System;
+using System.Linq;
+
+namespace MinIOExample.Application.Models;
 
 public class FileId : BaseId
 {

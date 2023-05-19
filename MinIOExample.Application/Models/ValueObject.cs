@@ -1,4 +1,7 @@
-﻿namespace MinIOExample.Application.Models;
+﻿using System.Collections.Generic;
+using System.Linq;
+
+namespace MinIOExample.Application.Models;
 
 public abstract class ValueObject
 {

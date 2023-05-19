@@ -1,4 +1,6 @@
-﻿namespace MinIOExample.Application.Models.DTO;
+﻿using System.IO;
+
+namespace MinIOExample.Application.Models.DTO;
 
 public record FileDto
 {

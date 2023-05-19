@@ -1,4 +1,6 @@
-﻿using MinIOExample.Application.Models;
+﻿using System.Threading;
+using System.Threading.Tasks;
+using MinIOExample.Application.Models;
 
 namespace MinIOExample.Application.Interfaces;
 

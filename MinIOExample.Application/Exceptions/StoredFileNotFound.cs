@@ -1,4 +1,5 @@
-﻿using MinIOExample.Application.Models;
+﻿using System;
+using MinIOExample.Application.Models;
 
 namespace MinIOExample.Application.Exceptions;
 
