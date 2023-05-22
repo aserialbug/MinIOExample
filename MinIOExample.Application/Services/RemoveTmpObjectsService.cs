@@ -63,6 +63,13 @@ public class RemoveTmpObjectsService : IHostedService, IDisposable
         {
             try
             {
+                // Удаляем временные файлы которые храняться
+                // больше чем _tempObjectSettings.RemoveIntervalMinutes
+                var storingTime = DateTime.UtcNow - fileMetadata.UploadedAt;
+                var allowedStoringTime = _tempObjectSettings.RemoveIntervalMinutes ?? 0;
+                if(storingTime <= TimeSpan.FromMinutes(allowedStoringTime))
+                    continue;
+                
                 await contentRepository.RemoveByIdAsync(fileMetadata.Id);
                 await metadataRepository.RemoveAsync(fileMetadata);
                 
@@ -73,7 +80,7 @@ public class RemoveTmpObjectsService : IHostedService, IDisposable
             }
             catch (Exception e)
             {
-                _logger.LogError(e, "Error removing temporary files.");
+                _logger.LogError(e, "Error removing temporary file {FileId}.", fileMetadata.Id);
             }
         }
     }
