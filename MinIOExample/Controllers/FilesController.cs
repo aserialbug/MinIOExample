@@ -103,7 +103,12 @@ public class FilesController : ControllerBase
         await _fileService.DeleteAsync(id, token);
     }
 
+    /// <summary>
+    /// Помечает файлы для постоянного хранения
+    /// </summary>
+    /// <param name="command"></param>
     [HttpPost("Accept")]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task AcceptToPermanentStorage(AcceptToPermanentStorageCommand command)
     {
         var fileIds = command.FileIds.Select(FileId.Parse);

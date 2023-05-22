@@ -2,7 +2,9 @@
 
 public record RemoveTempObjectSettings
 {
+
     public const string SectionName = "RemoveTempObjects";
     
-    public int? RemoveIntervalMinutes { get; init; }
+    public int? RemoveTaskIntervalMinutes { get; init; }
+    public int TempFileLifetimeMinutes { get; init; }
 }

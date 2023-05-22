@@ -10,7 +10,7 @@ namespace MinIOExample.Application.Services;
 public class RemoveTmpObjectsService : IHostedService, IDisposable
 {
     private readonly Timer _timer;
-    private readonly RemoveTempObjectSettings _tempObjectSettings;
+    private readonly RemoveTempObjectSettings _removeTempObjectSettings;
     private readonly ILogger<RemoveTmpObjectsService> _logger;
     private readonly IServiceProvider _serviceProvider;
 
@@ -21,13 +21,13 @@ public class RemoveTmpObjectsService : IHostedService, IDisposable
     {
         _logger = logger;
         _serviceProvider = serviceProvider;
-        _tempObjectSettings = tempObjectSettings.Value;
+        _removeTempObjectSettings = tempObjectSettings.Value;
         _timer = new Timer(RemoveTmpObjectsWrapper, null, Timeout.Infinite, Timeout.Infinite);
     }
     
     public Task StartAsync(CancellationToken cancellationToken)
     {
-        if (!_tempObjectSettings.RemoveIntervalMinutes.HasValue)
+        if (!_removeTempObjectSettings.RemoveTaskIntervalMinutes.HasValue)
         {
             _logger.LogInformation("Cannot start RemoveTmpObjectsService. RemoveIntervalMinutes is null");
             return Task.CompletedTask;
@@ -35,7 +35,7 @@ public class RemoveTmpObjectsService : IHostedService, IDisposable
         
         _timer.Change(
             TimeSpan.FromSeconds(5), 
-            TimeSpan.FromMinutes(_tempObjectSettings.RemoveIntervalMinutes.Value));
+            TimeSpan.FromMinutes(_removeTempObjectSettings.RemoveTaskIntervalMinutes.Value));
         
         return Task.CompletedTask;
     }
@@ -64,10 +64,10 @@ public class RemoveTmpObjectsService : IHostedService, IDisposable
             try
             {
                 // Удаляем временные файлы которые храняться
-                // больше чем _tempObjectSettings.RemoveIntervalMinutes
+                // больше чем _tempObjectSettings.TempFileLifetimeMinutes
                 var storingTime = DateTime.UtcNow - fileMetadata.UploadedAt;
-                var allowedStoringTime = _tempObjectSettings.RemoveIntervalMinutes ?? 0;
-                if(storingTime <= TimeSpan.FromMinutes(allowedStoringTime))
+                var allowedStoringTime = TimeSpan.FromMinutes(_removeTempObjectSettings.TempFileLifetimeMinutes);
+                if(storingTime <= allowedStoringTime)
                     continue;
                 
                 await contentRepository.RemoveByIdAsync(fileMetadata.Id);
