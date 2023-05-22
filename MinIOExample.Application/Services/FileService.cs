@@ -1,8 +1,4 @@
-﻿using System;
-using System.IO;
-using System.Threading;
-using System.Threading.Tasks;
-using Microsoft.Extensions.Options;
+﻿using Microsoft.Extensions.Options;
 using MinIOExample.Application.Exceptions;
 using MinIOExample.Application.Interfaces;
 using MinIOExample.Application.Models;
@@ -99,5 +95,13 @@ public class FileService
       await Task.WhenAll(
          _contentRepository.RemoveByIdAsync(fileId, token),
          _metadataRepository.RemoveAsync(metadata, token));
+   }
+
+   public async Task AcceptToPermanentStorage(IEnumerable<FileId> fileIds)
+   {
+      foreach (var fileMetadata in await _metadataRepository.GetByIds(fileIds))
+      {
+         fileMetadata.StorePermanently();
+      }
    }
 }

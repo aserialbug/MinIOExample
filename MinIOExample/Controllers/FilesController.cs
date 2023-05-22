@@ -2,6 +2,7 @@
 using MinIOExample.Application.Models;
 using MinIOExample.Application.Models.DTO;
 using MinIOExample.Application.Services;
+using MinIOExample.Commands;
 using MinIOExample.Extensions;
 using MinIOExample.ViewModels;
 
@@ -100,5 +101,12 @@ public class FilesController : ControllerBase
     {
         var id = FileId.Parse(fileId);
         await _fileService.DeleteAsync(id, token);
+    }
+
+    [HttpPost("Accept")]
+    public async Task AcceptToPermanentStorage(AcceptToPermanentStorageCommand command)
+    {
+        var fileIds = command.FileIds.Select(FileId.Parse);
+        await _fileService.AcceptToPermanentStorage(fileIds);
     }
 }

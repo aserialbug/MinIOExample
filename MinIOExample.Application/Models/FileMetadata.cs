@@ -11,8 +11,16 @@ public class FileMetadata : Entity<FileId>
     public ContentType ContentType { get; }
     public DateTime UploadedAt { get; }
     public UserId UploadedBy { get; }
+    public bool IsTemporary { get; private set; }
 
-    public FileMetadata(FileId id, string fileName, string fileExt, long fileSizeBytes, ContentType contentType, DateTime uploadedAt, UserId uploadedBy) : base(id)
+    public FileMetadata(FileId id, 
+        string fileName, 
+        string fileExt, 
+        long fileSizeBytes, 
+        ContentType contentType, 
+        DateTime uploadedAt, 
+        UserId uploadedBy, 
+        bool isTemporary) : base(id)
     {
         if (string.IsNullOrWhiteSpace(fileName))
             throw new ArgumentNullException(nameof(fileName));
@@ -30,6 +38,12 @@ public class FileMetadata : Entity<FileId>
         UploadedAt = uploadedAt;
         UploadedBy = uploadedBy 
                      ?? throw new ArgumentNullException(nameof(uploadedBy));
+        IsTemporary = isTemporary;
+    }
+
+    public void StorePermanently()
+    {
+        IsTemporary = false;
     }
 
     public static FileMetadata New(string fileName, long fileSize, ContentType contentType,
@@ -41,6 +55,7 @@ public class FileMetadata : Entity<FileId>
             fileSize,
             contentType,
             DateTime.UtcNow,
-            uploadedBy);
+            uploadedBy,
+            true);
     }
 }

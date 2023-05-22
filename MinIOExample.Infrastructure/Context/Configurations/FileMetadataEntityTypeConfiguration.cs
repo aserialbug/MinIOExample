@@ -28,5 +28,7 @@ public class FileMetadataEntityTypeConfiguration : IEntityTypeConfiguration<File
             .HasConversion(
                 userId => userId.ToString(),
                 value => new UserId(value));
+        builder.Property(m => m.IsTemporary)
+            .HasDefaultValue(true);
     }
 }

@@ -1,5 +1,4 @@
-﻿using System.Threading;
-using System.Threading.Tasks;
+﻿using Microsoft.EntityFrameworkCore;
 using MinIOExample.Application.Exceptions;
 using MinIOExample.Application.Interfaces;
 using MinIOExample.Application.Models;
@@ -7,7 +6,7 @@ using MinIOExample.Infrastructure.Context;
 
 namespace MinIOExample.Infrastructure.Repositories;
 
-public class FileMetadataRepository : IFileMetadataRepository
+public class FileMetadataRepository : IFileMetadataRepository, IDisposable
 {
     private readonly ApplicationDbContext _context;
 
@@ -28,12 +27,31 @@ public class FileMetadataRepository : IFileMetadataRepository
     public async Task AddAsync(FileMetadata metadata, CancellationToken token = default)
     {
         await _context.Metadata.AddAsync(metadata, token);
-        await _context.SaveChangesAsync(token);
     }
 
-    public async Task RemoveAsync(FileMetadata metadata, CancellationToken token = default)
+    public Task RemoveAsync(FileMetadata metadata, CancellationToken token = default)
     {
         _context.Metadata.Remove(metadata);
-        await _context.SaveChangesAsync(token);
+        return Task.CompletedTask;
+    }
+
+    public async Task<FileMetadata[]> GetTemporaryObjects()
+    {
+        return await _context.Metadata
+            .Where(m => m.IsTemporary)
+            .ToArrayAsync();
+    }
+
+    public async Task<FileMetadata[]> GetByIds(IEnumerable<FileId> fileIds)
+    {
+        return await _context.Metadata
+            .Where(m => fileIds.Contains(m.Id))
+            .ToArrayAsync();
+    }
+
+    public void Dispose()
+    {
+        _context.SaveChanges();
+        _context.Dispose();
     }
 }

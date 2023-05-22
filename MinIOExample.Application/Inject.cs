@@ -11,7 +11,10 @@ public static class Inject
     {
         serviceCollection.Configure<UploadRestrictionsSettings>(
             configuration.GetSection(UploadRestrictionsSettings.SectionName));
-        
+        serviceCollection.Configure<RemoveTempObjectSettings>(
+            configuration.GetSection(RemoveTempObjectSettings.SectionName));
+
+        serviceCollection.AddHostedService<RemoveTmpObjectsService>();
         serviceCollection.AddScoped<FileService>();
         return serviceCollection;
     }
