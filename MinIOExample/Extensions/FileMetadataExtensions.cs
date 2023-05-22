@@ -15,7 +15,8 @@ public static class FileMetadataExtensions
             ContentType = metadata.ContentType.ToString(),
             FileSize = metadata.FileSizeBytes,
             UploadedAt = metadata.UploadedAt,
-            UploadedBy = metadata.UploadedBy.ToString()
+            UploadedBy = metadata.UploadedBy.ToString(),
+            IsTempFile = metadata.IsTemporary
         };
     }
 }
