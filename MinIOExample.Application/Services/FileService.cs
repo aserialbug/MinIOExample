@@ -97,7 +97,7 @@ public class FileService
          _metadataRepository.RemoveAsync(metadata, token));
    }
 
-   public async Task AcceptToPermanentStorage(IEnumerable<FileId> fileIds)
+   public async Task AcceptToPermanentStorage(IEnumerable<FileId> fileIds, CancellationToken token = default)
    {
       foreach (var fileMetadata in await _metadataRepository.GetByIds(fileIds))
       {

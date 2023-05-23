@@ -35,18 +35,18 @@ public class FileMetadataRepository : IFileMetadataRepository, IDisposable
         return Task.CompletedTask;
     }
 
-    public async Task<FileMetadata[]> GetTemporaryObjects()
+    public async Task<FileMetadata[]> GetTemporaryObjects(CancellationToken token = default)
     {
         return await _context.Metadata
             .Where(m => m.IsTemporary)
-            .ToArrayAsync();
+            .ToArrayAsync(token);
     }
 
-    public async Task<FileMetadata[]> GetByIds(IEnumerable<FileId> fileIds)
+    public async Task<FileMetadata[]> GetByIds(IEnumerable<FileId> fileIds, CancellationToken token = default)
     {
         return await _context.Metadata
             .Where(m => fileIds.Contains(m.Id))
-            .ToArrayAsync();
+            .ToArrayAsync(token);
     }
 
     public void Dispose()

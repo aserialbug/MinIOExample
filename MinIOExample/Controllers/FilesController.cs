@@ -107,11 +107,12 @@ public class FilesController : ControllerBase
     /// Помечает файлы для постоянного хранения
     /// </summary>
     /// <param name="command"></param>
+    /// <param name="token"></param>
     [HttpPost("Accept")]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public async Task AcceptToPermanentStorage(AcceptToPermanentStorageCommand command)
+    public async Task AcceptToPermanentStorage(AcceptToPermanentStorageCommand command, CancellationToken token)
     {
         var fileIds = command.FileIds.Select(FileId.Parse);
-        await _fileService.AcceptToPermanentStorage(fileIds);
+        await _fileService.AcceptToPermanentStorage(fileIds, token);
     }
 }

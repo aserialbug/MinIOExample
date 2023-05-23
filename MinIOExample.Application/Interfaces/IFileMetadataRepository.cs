@@ -4,6 +4,6 @@ namespace MinIOExample.Application.Interfaces;
 
 public interface IFileMetadataRepository : IRepository<FileMetadata, FileId>
 {
-    Task<FileMetadata[]> GetTemporaryObjects();
-    Task<FileMetadata[]> GetByIds(IEnumerable<FileId> fileIds);
+    Task<FileMetadata[]> GetTemporaryObjects(CancellationToken token = default);
+    Task<FileMetadata[]> GetByIds(IEnumerable<FileId> fileIds, CancellationToken token = default);
 }
