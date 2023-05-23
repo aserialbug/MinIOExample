@@ -110,7 +110,7 @@ public class FilesController : ControllerBase
     /// <param name="token"></param>
     [HttpPost("Accept")]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public async Task AcceptToPermanentStorage(AcceptToPermanentStorageCommand command, CancellationToken token)
+    public async Task AcceptToPermanentStorageAsync(AcceptToPermanentStorageCommand command, CancellationToken token)
     {
         var fileIds = command.FileIds.Select(FileId.Parse);
         await _fileService.AcceptToPermanentStorage(fileIds, token);
