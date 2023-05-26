@@ -15,7 +15,7 @@ public class FileContentRepository : IFileContentRepository
 {
     private readonly MinioSettings _minioSettings;
     private readonly MinioClient _minioClient;
-    private readonly SemaphoreSlim _semaphore = new (1, 1);
+    private readonly SemaphoreSlim _semaphore = new (0, 1);
 
     public FileContentRepository(IOptions<MinioSettings> minioSettings)
     {
