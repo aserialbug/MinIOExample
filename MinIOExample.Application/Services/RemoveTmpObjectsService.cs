@@ -59,7 +59,7 @@ public class RemoveTmpObjectsService : IHostedService, IDisposable
         IFileMetadataRepository metadataRepository, 
         IFileContentRepository contentRepository)
     {
-        foreach (var fileMetadata in await metadataRepository.GetTemporaryObjects())
+        foreach (var fileMetadata in await metadataRepository.GetTemporaryObjectsAsync())
         {
             try
             {
@@ -69,10 +69,11 @@ public class RemoveTmpObjectsService : IHostedService, IDisposable
                 var allowedStoringTime = TimeSpan.FromMinutes(_removeTempObjectSettings.TempFileLifetimeMinutes);
                 if(storingTime <= allowedStoringTime)
                     continue;
-                
-                await contentRepository.RemoveByIdAsync(fileMetadata.Id);
-                await metadataRepository.RemoveAsync(fileMetadata);
-                
+
+                await Task.WhenAll(
+                    contentRepository.RemoveByIdAsync(fileMetadata.Id),
+                    metadataRepository.RemoveAsync(fileMetadata));
+
                 _logger.LogInformation(
                     "Temporary stored file Id={FileId}, Name={Name} successfully removed",
                     fileMetadata.Id,
@@ -80,7 +81,7 @@ public class RemoveTmpObjectsService : IHostedService, IDisposable
             }
             catch (Exception e)
             {
-                _logger.LogError(e, "Error removing temporary file {FileId}.", fileMetadata.Id);
+                _logger.LogError(e, "Error removing temporary file {FileId}", fileMetadata.Id);
             }
         }
     }

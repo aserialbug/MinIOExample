@@ -35,7 +35,7 @@ public class FileMetadataRepository : IFileMetadataRepository, IDisposable
         return Task.CompletedTask;
     }
 
-    public async Task<FileMetadata[]> GetTemporaryObjects(CancellationToken token = default)
+    public async Task<FileMetadata[]> GetTemporaryObjectsAsync(CancellationToken token = default)
     {
         return await _context.Metadata
             .Where(m => m.IsTemporary)
