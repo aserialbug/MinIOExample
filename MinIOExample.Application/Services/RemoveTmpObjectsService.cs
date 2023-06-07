@@ -51,16 +51,23 @@ public class RemoveTmpObjectsService : IHostedService, IDisposable
         var contentRepository = scope
             .ServiceProvider
             .GetRequiredService<IFileContentRepository>();
+        
+        var transactionContext = scope
+            .ServiceProvider
+            .GetRequiredService<IBusinessTransactionContext>();
 
-        await RemoveTempObjects(metadataRepository, contentRepository);
+        await RemoveTempObjectsAsync(metadataRepository, contentRepository, transactionContext);
     }
 
-    private async Task RemoveTempObjects(
+    private async Task RemoveTempObjectsAsync(
         IFileMetadataRepository metadataRepository, 
-        IFileContentRepository contentRepository)
+        IFileContentRepository contentRepository,
+        IBusinessTransactionContext transactionContext,
+        CancellationToken token = default)
     {
-        foreach (var fileMetadata in await metadataRepository.GetTemporaryObjectsAsync())
+        foreach (var fileMetadata in await metadataRepository.GetTemporaryObjectsAsync(token))
         {
+            await transactionContext.BeginTransactionAsync(token);
             try
             {
                 // Удаляем временные файлы которые храняться
@@ -71,8 +78,10 @@ public class RemoveTmpObjectsService : IHostedService, IDisposable
                     continue;
 
                 await Task.WhenAll(
-                    contentRepository.RemoveByIdAsync(fileMetadata.Id),
-                    metadataRepository.RemoveAsync(fileMetadata));
+                    contentRepository.RemoveByIdAsync(fileMetadata.Id, token),
+                    metadataRepository.RemoveAsync(fileMetadata, token));
+                
+                await transactionContext.CommitTransactionAsync(token);
 
                 _logger.LogInformation(
                     "Temporary stored file Id={FileId}, Name={Name} successfully removed",
@@ -82,6 +91,7 @@ public class RemoveTmpObjectsService : IHostedService, IDisposable
             catch (Exception e)
             {
                 _logger.LogError(e, "Error removing temporary file {FileId}", fileMetadata.Id);
+                await transactionContext.RollbackTransactionAsync(token);
             }
         }
     }

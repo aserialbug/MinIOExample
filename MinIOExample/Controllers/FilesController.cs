@@ -4,6 +4,7 @@ using MinIOExample.Application.Models.DTO;
 using MinIOExample.Application.Services;
 using MinIOExample.Commands;
 using MinIOExample.Extensions;
+using MinIOExample.Filters;
 using MinIOExample.ViewModels;
 
 namespace MinIOExample.Controllers;
@@ -72,6 +73,7 @@ public class FilesController : ControllerBase
     [HttpPost]
     [ProducesResponseType(typeof(FileMetadataViewModel), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [BusinessTransaction]
     public async Task<FileMetadataViewModel> UploadFileAsync(IFormFile formFile, CancellationToken token)
     {
         using var memory = new MemoryStream();
@@ -97,6 +99,7 @@ public class FilesController : ControllerBase
     [HttpDelete("{fileId}")]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [BusinessTransaction]
     public async Task DeleteFileAsync(string fileId, CancellationToken token)
     {
         var id = FileId.Parse(fileId);
@@ -110,6 +113,7 @@ public class FilesController : ControllerBase
     /// <param name="token"></param>
     [HttpPost("Accept")]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [BusinessTransaction]
     public async Task AcceptToPermanentStorageAsync(AcceptToPermanentStorageCommand command, CancellationToken token)
     {
         var fileIds = command.FileIds.Select(FileId.Parse);

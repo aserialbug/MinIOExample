@@ -19,7 +19,8 @@ public static class Inject
 
         serviceCollection.AddScoped<IFileMetadataRepository, FileMetadataRepository>();
         serviceCollection.AddScoped<IFileContentRepository, FileContentRepository>();
-        
+        serviceCollection.AddScoped<IBusinessTransactionContext, BusinessTransactionContext>();
+
         serviceCollection.AddDbContext<ApplicationDbContext>(options => options.UseNpgsql(configuration.GetConnectionString("ApplicationDbContext")));
         
         return serviceCollection;

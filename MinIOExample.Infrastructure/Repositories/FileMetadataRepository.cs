@@ -6,7 +6,7 @@ using MinIOExample.Infrastructure.Context;
 
 namespace MinIOExample.Infrastructure.Repositories;
 
-public class FileMetadataRepository : IFileMetadataRepository, IDisposable
+public class FileMetadataRepository : IFileMetadataRepository
 {
     private readonly ApplicationDbContext _context;
 
@@ -47,11 +47,5 @@ public class FileMetadataRepository : IFileMetadataRepository, IDisposable
         return await _context.Metadata
             .Where(m => fileIds.Contains(m.Id))
             .ToArrayAsync(token);
-    }
-
-    public void Dispose()
-    {
-        _context.SaveChanges();
-        _context.Dispose();
     }
 }

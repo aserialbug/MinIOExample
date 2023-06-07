@@ -1,9 +1,5 @@
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.DependencyInjection;
 using MinIOExample.Application;
 using MinIOExample.Extensions;
-using MinIOExample.Filters;
 using MinIOExample.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -13,7 +9,7 @@ builder.WebHost.ConfigureKestrel(options =>
 });
 builder.Services.AddApplication(builder.Configuration);
 builder.Services.AddInfrastructure(builder.Configuration);
-builder.Services.AddControllers(options => options.Filters.Add<ErrorHandlerFilter>());
+builder.Services.AddControllers(options => options.AddFilters());
 builder.Services.AddCustomSwaggerGen();
 
 var app = builder.Build();
